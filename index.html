@@ -1,23 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="node_modules/normalize.css/normalize.css.css">
+    <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
     <link rel="stylesheet" href="assets/style/style.css">
     <title>Animated Buttons</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
+
 </head>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        min-height: 100vh;
+        padding: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+
+        background: linear-gradient(150deg, hsla(0, 0%, 0%, 1) 27%, hsla(283, 61%, 8%, 1) 100%);
+    }
+
+    .wrap {
+        width: 80%;
+        padding: 30px 0 150px 0;
+        /*border: 1px solid wheat;*/
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 100px;
+    }
+
+    h2 {
+        color: aliceblue;
+        font-family: monospace;
+        font-size: 40px;
+        font-weight: 100;
+        text-align: center;
+    }
+
+    .button {
+        width: 300px;
+        height: 100px;
+        border-radius: 50px;
+
+        color: white;
+        text-shadow: rgba(0, 0, 0, 0.348) 0 0 50px;
+        font-family: sans-serif;
+        font-size: 30px;
+        font-weight: 800;
+
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .type-1a,
+    .type-1b {
+        background: linear-gradient(90deg, hsla(154, 100%, 76%, 1) 0%, hsla(234, 100%, 83%, 1) 50%, hsla(288, 100%, 81%, 1) 100%);
+
+        background-size: 200%;
+    }
+
+    .type-1a {
+        animation: type1-anim 4s linear infinite;
+    }
+
+    .type-1b:hover {
+        animation: type1-anim 4s linear infinite;
+    }
+
+    @keyframes type1-anim {
+        0% {
+            background-position: 0% 50%
+        }
+
+        50% {
+            background-position: 100% 50%
+        }
+
+        100% {
+            background-position: 0% 50%
+        }
+    }
+</style>
+
 <body>
-    <div class="button"></div>
-    <div class="button"></div>
-    <div class="button"></div>
+    <main>
+        <div class="wrap">
+            <h2>Ever Moving Gradient</h2>
+            <div class="inner-wrap">
+                <div class="button type-1a">BUTTON 1A</div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <h2>Moving Gradient On Hover</h2>
+            <div class="inner-wrap">
+                <div class="button type-1b">BUTTON 1B</div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <h2>Moving Gradient</h2>
+            <div class="inner-wrap">
+                <div class="button">BUTTON 2    </div>
+            </div>
+        </div>
+
+    </main>
 </body>
+
 </html>
