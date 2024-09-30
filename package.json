@@ -1,6 +1,7 @@
 {
   "name": "animated-btns",
   "version": "1.0.0",
+  "type": "module",
   "description": "sandbox for creating animated btns",
   "main": "buttons.js",
   "scripts": {
@@ -21,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/taorkon/animated-buttons/issues"
   },
-  "homepage": "https://github.com/taorkon/animated-buttons#readme"
+  "homepage": "https://github.com/taorkon/animated-buttons#readme",
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  }
 }
