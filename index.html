@@ -43,12 +43,21 @@
     h2 {
         color: aliceblue;
         font-family: monospace;
-        font-size: 40px;
+        font-size: 30px;
         font-weight: 100;
         text-align: center;
     }
 
-    .inner-wrap {
+    .comment {
+        margin-top: 30px;
+        color: aliceblue;
+        font-family: monospace;
+        font-size: 20px;
+        font-weight: 100;
+        text-align: center;
+    }
+
+    .button-wrap {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -168,35 +177,34 @@
     .type-3b:hover .type-3b-mask {
         animation: flow-anim 2s linear infinite;
     }
-
-
-
-
-    /*.type-2b {
-        background-size: 6000%;
-        animation: flow-anim 4s linear infinite;
-    }*/
 </style>
 
 <body>
     <main>
         <div class="wrap">
-            <h2>Flowing Gradient</h2>
-            <div class="inner-wrap">
+            <div class="header-wrap">
+                <h2>Flowing Gradient</h2>
+            </div>
+            <div class="button-wrap">
                 <div class="button type-1a">BUTTON 1A</div>
             </div>
         </div>
 
         <div class="wrap">
-            <h2>Flowing Gradient On Hover</h2>
-            <div class="inner-wrap">
+            <div class="header-wrap">
+                <h2>Flowing Gradient On Hover</h2>
+            </div>
+            <div class="button-wrap">
                 <div class="button type-1b">BUTTON 1B</div>
             </div>
         </div>
 
         <div class="wrap">
-            <h2>Shared Parallax Background</h2>
-            <div class="inner-wrap">
+            <div class="header-wrap">
+                <h2>Shared Parallax Background</h2>
+                <p class="comment"># Can be used for a single button to 'change' colour on scroll</p>
+            </div>
+            <div class="button-wrap">
                 <div class="button type-2a">BUTTON 2A</div>
                 <div class="button type-2a">BUTTON 2A</div>
                 <div class="button type-2a">BUTTON 2A</div>
@@ -205,15 +213,21 @@
         </div>
 
         <div class="wrap">
-            <h2>Ever Flowing Gradient Border & Text</h2>
-            <div class="inner-wrap">
+            <div class="header-wrap">
+                <h2>Ever Flowing Gradient Border & Text</h2>
+                <p class="comment"># Limited compatiability</p>
+            </div>
+            <div class="button-wrap">
                 <div class="button type-3a">BUTTON 3A</div>
             </div>
         </div>
 
         <div class="wrap">
-            <h2>Flowing Gradient Border & Text On Hover</h2>
-            <div class="inner-wrap">
+            <div class="header-wrap">
+                <h2>Flowing Gradient Border & Text On Hover</h2>
+                <p class="comment"># Limited compatiability</p>
+            </div>
+            <div class="button-wrap">
                 <div class="button type-3b">BUTTON 3B<div class="button type-3b-mask">/div></div>
 
                 </div>
