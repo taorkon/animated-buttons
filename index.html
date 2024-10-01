@@ -110,6 +110,68 @@
         background-size: cover;
     }
 
+    .type-3a,
+    .type-3b {
+        position: relative;
+        z-index: 0;
+
+        background: linear-gradient(90deg, rgb(112, 250, 190) 0%, rgb(71, 86, 224), rgb(198, 25, 241) 100%);
+        background-size: 300%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .type-3a::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        padding: 5px;
+        /* the border thickness */
+        border-radius: 50px;
+        background: linear-gradient(90deg, rgb(112, 250, 190) 0%, rgb(71, 86, 224), rgb(198, 25, 241) 100%);
+        background-size: 300%;
+        -webkit-mask: linear-gradient(#000 0 0) exclude,
+            linear-gradient(#000 0 0) content-box;
+        mask:
+            linear-gradient(#000 0 0) exclude,
+            linear-gradient(#000 0 0) content-box;
+    }
+
+    .type-3b-mask {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        padding: 5px;
+        /* the border thickness */
+        border-radius: 50px;
+        background: linear-gradient(90deg, rgb(112, 250, 190) 0%, rgb(71, 86, 224), rgb(198, 25, 241) 100%);
+        background-size: 300%;
+        -webkit-mask: linear-gradient(#000 0 0) exclude,
+            linear-gradient(#000 0 0) content-box;
+        mask:
+            linear-gradient(#000 0 0) exclude,
+            linear-gradient(#000 0 0) content-box;
+    }
+
+    .type-3a,
+    .type-3a::before {
+        animation: flow-anim 4s linear infinite;
+    }
+
+
+    .type-3b:hover {
+        animation: flow-anim 2s linear infinite;
+    }
+
+    .type-3b:hover .type-3b-mask {
+        animation: flow-anim 2s linear infinite;
+    }
+
+
+
+
     /*.type-2b {
         background-size: 6000%;
         animation: flow-anim 4s linear infinite;
@@ -142,7 +204,22 @@
             </div>
         </div>
 
-        <!-- <div class="wrap">
+        <div class="wrap">
+            <h2>Ever Flowing Gradient Border & Text</h2>
+            <div class="inner-wrap">
+                <div class="button type-3a">BUTTON 3A</div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <h2>Flowing Gradient Border & Text On Hover</h2>
+            <div class="inner-wrap">
+                <div class="button type-3b">BUTTON 3B<div class="button type-3b-mask">/div></div>
+
+                </div>
+            </div>
+
+            <!-- <div class="wrap">
             <h2>Flowing Shared Background</h2>
             <div class="inner-wrap">
                 <div class="button type-2b">BUTTON 2B</div>
