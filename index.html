@@ -177,6 +177,226 @@
     .type-3b:hover .type-3b-mask {
         animation: flow-anim 2s linear infinite;
     }
+
+    .type-4a,
+    .type-4b,
+    .type-4c,
+    .type-4d,
+    .type-5 {
+        position: relative;
+        overflow: hidden;
+        z-index: 0;
+        background: rgb(71, 86, 224);
+
+    }
+
+    .type-4a::after {
+        content: "";
+        position: absolute;
+        z-index: -100;
+        width: 300%;
+        height: 300%;
+        left: -300%;
+        background: radial-gradient(ellipse, rgb(112, 250, 190), rgb(71, 86, 224)70%);
+        transition: all 1.2s ease;
+    }
+
+    .type-4a:hover::after {
+        left: -100%;
+    }
+
+    .type-4a:hover {
+        text-shadow: rgba(0, 0, 0) 0 0 80px;
+        transition: all 1s ease;
+    }
+
+
+    .type-4b::after {
+        content: "";
+        position: absolute;
+        z-index: -100;
+        width: 300%;
+        height: 300%;
+        right: -300%;
+        background: radial-gradient(ellipse, rgb(112, 250, 190), rgb(71, 86, 224)70%);
+        transition: all 1.2s ease;
+    }
+
+    .type-4b:hover::after {
+        right: -100%;
+    }
+
+    .type-4b:hover {
+        text-shadow: rgba(0, 0, 0) 0 0 80px;
+        transition: all 1s ease;
+    }
+
+
+    .type-4c::after {
+        content: "";
+        position: absolute;
+        z-index: -100;
+        width: 300%;
+        height: 300%;
+        top: -300%;
+        background: radial-gradient(ellipse, rgb(112, 250, 190), rgb(71, 86, 224)70%);
+        transition: all 0.8s ease;
+    }
+
+    .type-4c:hover::after {
+        top: -100%;
+    }
+
+    .type-4c:hover {
+        text-shadow: rgba(0, 0, 0) 0 0 80px;
+        transition: all 1s ease;
+    }
+
+    .type-4d::after {
+        content: "";
+        position: absolute;
+        z-index: -100;
+        width: 300%;
+        height: 300%;
+        bottom: -300%;
+        background: radial-gradient(ellipse, rgb(112, 250, 190), rgb(71, 86, 224)70%);
+        transition: all 0.8s ease;
+    }
+
+    .type-4d:hover::after {
+        bottom: -100%;
+    }
+
+    .type-4d:hover {
+        text-shadow: rgba(0, 0, 0) 0 0 80px;
+        transition: all 1s ease;
+    }
+
+    .type-5::after {
+        content: "";
+        position: absolute;
+        z-index: -100;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(ellipse, rgb(112, 250, 190), rgb(71, 86, 224));
+        transition: all 1.5s ease;
+    }
+
+    .type-5:hover::after {
+        width: 200%;
+        height: 200%;
+    }
+
+    .type-5:hover {
+        text-shadow: rgba(0, 0, 0) 0 0 80px;
+        transition: all 2s ease;
+    }
+
+    .type-6a {
+        position: relative;
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%);
+        border-radius: 0px;
+    }
+
+
+    .type-6a::before,
+    .type-6a::after {
+        position: absolute;
+        content: "";
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+    }
+
+    .type-6a::before {
+        top: -10px;
+        right: -10px;
+
+        border-top: 1px solid;
+        border-left: 1px solid;
+
+        border-image: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%)1;
+
+        transition: width 0.2s 0.5s ease-out, height 0.15s 0.35s linear, opacity 0s 0.7s;
+    }
+
+    .type-6a::after {
+        bottom: -10px;
+        left: -10px;
+
+        border-bottom: 1px solid;
+        border-right: 1px solid;
+
+        border-image: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%)1;
+
+        transition: width 0.2s 0.15s linear, height 0.15s ease-in, opacity 0s 0.35s;
+    }
+
+    .type-6a:hover::before,
+    .type-6a:hover::after {
+        outline: 0 !important;
+        outline-offset: 0;
+
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
+        opacity: 1;
+    }
+
+    .type-6a:hover::before {
+        transition: width 0.2s ease-in, height 0.15s 0.2s linear, opacity 0s;
+        /* 1,2 */
+    }
+
+    .type-6a:hover::after {
+        transition: width 0.2s 0.35s linear, height 0.15s 0.5s ease-out, opacity 0s 0.3s;
+    }
+
+    .type-6b {
+        position: relative;
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%);
+        border-radius: 0px;
+    }
+
+    .type-6b::before,
+    .type-6b::after {
+        position: absolute;
+        content: "";
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+        transition: width 0.2s linear, height 0.15s 0.2s ease-out, opacity 0s 0.35s;
+    }
+
+    .type-6b::before {
+        bottom: -10px;
+        left: -10px;
+        border-top: 1px solid;
+        border-left: 1px solid;
+        border-image: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%)1;
+    }
+
+    .type-6b::after {
+        top: -10px;
+        right: -10px;
+        border-bottom: 1px solid;
+        border-right: 1px solid;
+        border-image: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%)1;
+    }
+
+    .type-6b:hover::before,
+    .type-6b:hover::after {
+        outline: 0 !important;
+        outline-offset: 0;
+
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
+        opacity: 1;
+        transition: width 0.2s 0.15s ease-out, height 0.15s ease-in, opacity 0s;
+    }
 </style>
 
 <body>
@@ -228,12 +448,83 @@
                 <p class="comment"># Limited compatiability</p>
             </div>
             <div class="button-wrap">
-                <div class="button type-3b">BUTTON 3B<div class="button type-3b-mask">/div></div>
-
+                <div class="button type-3b">BUTTON 3B<div class="button type-3b-mask"></div>
                 </div>
-            </div>
 
-            <!-- <div class="wrap">
+            </div>
+        </div>
+
+        <div class="wrap">
+            <div class="header-wrap">
+                <h2>Blended Color Change On Hover </h2>
+                <p class="comment"># Left to right</p>
+            </div>
+            <div class="button-wrap">
+                <div class="button type-4a">BUTTON 4A</div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <div class="header-wrap">
+                <h2>Blended Color Change On Hover </h2>
+                <p class="comment"># Right to left</p>
+            </div>
+            <div class="button-wrap">
+                <div class="button type-4b">BUTTON 4B</div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <div class="header-wrap">
+                <h2>Blended Color Change On Hover </h2>
+                <p class="comment"># Top to bottom</p>
+            </div>
+            <div class="button-wrap">
+                <div class="button type-4c">BUTTON 4C</div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <div class="header-wrap">
+                <h2>Blended Color Change On Hover </h2>
+                <p class="comment"># Bottom to top</p>
+            </div>
+            <div class="button-wrap">
+                <div class="button type-4d">BUTTON 4D</div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <div class="header-wrap">
+                <h2>Denser Gradient On Hover </h2>
+                <p class="comment"></p>
+            </div>
+            <div class="button-wrap">
+                <div class="button type-5">BUTTON 5</div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <div class="header-wrap">
+                <h2>Border On Hover</h2>
+                <p class="comment"># Full perimeter</p>
+            </div>
+            <div class="button-wrap">
+                <div class="button type-6a">BUTTON 6A</div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <div class="header-wrap">
+                <h2>Border On Hover</h2>
+                <p class="comment"># From two points</p>
+            </div>
+            <div class="button-wrap">
+                <div class="button type-6b">BUTTON 6B</div>
+            </div>
+        </div>
+
+        <!-- <div class="wrap">
             <h2>Flowing Shared Background</h2>
             <div class="inner-wrap">
                 <div class="button type-2b">BUTTON 2B</div>
