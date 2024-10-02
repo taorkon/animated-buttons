@@ -312,10 +312,10 @@
 
     .type-6a::before {
         top: -10px;
-        right: -10px;
+        right: -7px;
 
-        border-top: 1px solid;
-        border-left: 1px solid;
+        border-top: 3px solid;
+        border-left: 3px solid;
 
         border-image: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%)1;
 
@@ -326,8 +326,8 @@
         bottom: -10px;
         left: -10px;
 
-        border-bottom: 1px solid;
-        border-right: 1px solid;
+        border-bottom: 3px solid;
+        border-right: 3px solid;
 
         border-image: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%)1;
 
@@ -339,8 +339,8 @@
         outline: 0 !important;
         outline-offset: 0;
 
-        width: calc(100% + 20px);
-        height: calc(100% + 20px);
+        width: calc(100% + 17px);
+        height: calc(100% + 17px);
         opacity: 1;
     }
 
@@ -350,6 +350,7 @@
     }
 
     .type-6a:hover::after {
+        height: calc(100% + 18px);
         transition: width 0.2s 0.35s linear, height 0.15s 0.5s ease-out, opacity 0s 0.3s;
     }
 
@@ -374,16 +375,16 @@
     .type-6b::before {
         bottom: -10px;
         left: -10px;
-        border-top: 1px solid;
-        border-left: 1px solid;
+        border-top: 3px solid;
+        border-left: 3px solid;
         border-image: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%)1;
     }
 
     .type-6b::after {
-        top: -10px;
+        top: -7px;
         right: -10px;
-        border-bottom: 1px solid;
-        border-right: 1px solid;
+        border-bottom: 3px solid;
+        border-right: 3px solid;
         border-image: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%)1;
     }
 
@@ -392,10 +393,15 @@
         outline: 0 !important;
         outline-offset: 0;
 
-        width: calc(100% + 20px);
-        height: calc(100% + 20px);
+        width: calc(100% + 17px);
+        height: calc(100% + 17px);
         opacity: 1;
         transition: width 0.2s 0.15s ease-out, height 0.15s ease-in, opacity 0s;
+
+    }
+
+    .type-6b:hover::after {
+        width: calc(100% + 18px);
     }
 </style>
 
