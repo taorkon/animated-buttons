@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
     <link rel="stylesheet" href="assets/style/style.css">
+
     <title>Animated Buttons</title>
 
 </head>
@@ -521,6 +522,86 @@
     .type-6d:hover::after {
         width: calc(100% + 18px);
     }
+
+    /*
+    .type-7 {
+        width: 176px;
+        margin: 0 auto;
+        margin-top: 30px;
+        padding-top: 40px;
+    }*/
+
+    .type-7 {
+        overflow: hidden;
+        position: relative;
+        z-index: 0;
+
+        background-color: rgb(112, 250, 190);
+        /*display: inline-block;
+        border-radius: 3px;
+        margin-bottom: 30px;*/
+    }
+
+    .type-7-circle {
+        background-color: red;
+        border-radius: 1000px;
+        position: absolute;
+        /*left: 100%;
+        top: 100%;*/
+        width: 0px;
+        height: 0px;
+        margin-left: 0px;
+        margin-top: 0px;
+        pointer-events: none;
+        z-index: -100;
+        /*animation-timing-function: ease-in-out; */
+    }
+
+
+    .explode-circle {
+        animation: explode 1s forwards;
+
+    }
+
+    .desplode-circle {
+        animation: desplode 0.5s forwards;
+    }
+
+    @keyframes explode {
+        0% {
+            width: 0px;
+            height: 0px;
+            margin-left: 0px;
+            margin-top: 0px;
+            background: rgba(42, 53, 80, 0.2);
+        }
+
+        100% {
+            width: 800px;
+            height: 800px;
+            margin-left: -400px;
+            margin-top: -400px;
+            background: radial-gradient(circle, rgb(198, 25, 241), rgb(112, 250, 190));
+        }
+    }
+
+    @keyframes desplode {
+        0% {
+            width: 800px;
+            height: 800px;
+            margin-left: -400px;
+            margin-top: -400px;
+            background: radial-gradient(circle, rgb(198, 25, 241), rgb(112, 250, 190));
+        }
+
+        100% {
+            width: 0px;
+            height: 0px;
+            margin-left: 0px;
+            margin-top: 0px;
+            background-color: rgba(129, 80, 108, 0.6);
+        }
+    }
 </style>
 
 <body>
@@ -668,8 +749,13 @@
             </div>
         </div>
 
-
-
+        <div class="wrap">
+            <div class="button-wrap">
+                <div class="button type-7">BUTTON 7
+                    <div class="button type-7-circle"></div>
+                </div>
+            </div>
+        </div>
         <!-- <div class="wrap">
             <h2>Flowing Shared Background</h2>
             <div class="inner-wrap">
@@ -685,6 +771,55 @@
         </div>-->
 
     </main>
+    <script>
+        document.querySelectorAll('.type-7').forEach(function (button) {
+            console.log(button);
+            var circle = document.querySelector('.type-7-circle');
+
+            console.log(circle);
+
+            button.addEventListener('mouseenter', function (e) {
+                console.log(circle);
+                var parentOffset = button.getBoundingClientRect();
+
+                var relX = e.clientX - parentOffset.left;
+                var relY = e.clientY - parentOffset.top;
+
+                console.log("e.clientX", e.clientX);
+                console.log("e.clientY", e.clientY);
+
+                console.log("parentOffset", parentOffset);
+                console.log("relX", relX);
+                console.log("relY", relY);
+
+                // Find the corresponding .su_button_circle by navigating the DOM
+                //var circle = document.querySelector('.su_button_circle[data-id="' + button.dataset.id + '"]');
+
+                circle.style.left = relX + 'px';
+                circle.style.top = relY + 'px';
+                circle.classList.remove('desplode-circle');
+                circle.classList.add('explode-circle');
+            });
+
+            button.addEventListener('mouseleave', function (e) {
+                console.log(circle);
+                var parentOffset = button.getBoundingClientRect();
+
+                var relX = e.clientX - parentOffset.left;
+                var relY = e.clientY - parentOffset.top;
+
+                // Find the corresponding .su_button_circle
+                //var circle = document.querySelector('.su_button_circle[data-id="' + button.dataset.id + '"]');
+
+                circle.style.left = relX + 'px';
+                circle.style.top = relY + 'px';
+                circle.classList.remove('explode-circle');
+                circle.classList.add('desplode-circle');
+            });
+        });
+
+
+    </script>
 </body>
 
 </html>
