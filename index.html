@@ -295,8 +295,8 @@
 
     .type-6a {
         position: relative;
-        border: none;
-        cursor: pointer;
+        /*border: none;
+        cursor: pointer;*/
         background: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%);
         border-radius: 0px;
     }
@@ -306,6 +306,8 @@
     .type-6a::after {
         position: absolute;
         content: "";
+
+        box-sizing: border-box;
         width: 0%;
         height: 0%;
         opacity: 0;
@@ -313,7 +315,7 @@
 
     .type-6a::before {
         top: -10px;
-        right: -7px;
+        right: -10px;
 
         border-top: 3px solid;
         border-left: 3px solid;
@@ -337,11 +339,11 @@
 
     .type-6a:hover::before,
     .type-6a:hover::after {
-        outline: 0 !important;
-        outline-offset: 0;
+        /*outline: 0 !important;
+        outline-offset: 0;*/
 
-        width: calc(100% + 17px);
-        height: calc(100% + 17px);
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
         opacity: 1;
     }
 
@@ -351,14 +353,14 @@
     }
 
     .type-6a:hover::after {
-        height: calc(100% + 18px);
+        /*height: calc(100% + 18px);*/
         transition: width 0.2s 0.35s linear, height 0.15s 0.5s ease-out, opacity 0s 0.3s;
     }
 
     .type-6b {
         position: relative;
-        border: none;
-        cursor: pointer;
+        /*border: none;
+        cursor: pointer;*/
         background: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%);
         border-radius: 0px;
     }
@@ -367,6 +369,7 @@
     .type-6b::after {
         position: absolute;
         content: "";
+        box-sizing: border-box;
         width: 0%;
         height: 0%;
         opacity: 0;
@@ -382,7 +385,7 @@
     }
 
     .type-6b::after {
-        top: -7px;
+        top: -10px;
         right: -10px;
         border-bottom: 3px solid;
         border-right: 3px solid;
@@ -391,24 +394,19 @@
 
     .type-6b:hover::before,
     .type-6b:hover::after {
-        outline: 0 !important;
-        outline-offset: 0;
 
-        width: calc(100% + 17px);
-        height: calc(100% + 17px);
+
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
         opacity: 1;
         transition: width 0.2s 0.15s ease-out, height 0.15s ease-in, opacity 0s;
 
     }
 
-    .type-6b:hover::after {
-        width: calc(100% + 18px);
-    }
 
     .type-6c {
         position: relative;
-        border: none;
-        cursor: pointer;
+
         background: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%);
         color: transparent;
         -webkit-background-clip: text;
@@ -421,6 +419,8 @@
     .type-6c::after {
         position: absolute;
         content: "";
+        box-sizing: border-box;
+
         width: 0%;
         height: 0%;
         opacity: 0;
@@ -428,7 +428,7 @@
 
     .type-6c::before {
         top: -10px;
-        right: -7px;
+        right: -10px;
 
         border-top: 3px solid;
         border-left: 3px solid;
@@ -452,11 +452,10 @@
 
     .type-6c:hover::before,
     .type-6c:hover::after {
-        outline: 0 !important;
-        outline-offset: 0;
 
-        width: calc(100% + 17px);
-        height: calc(100% + 17px);
+
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
         opacity: 1;
     }
 
@@ -466,14 +465,13 @@
     }
 
     .type-6c:hover::after {
-        height: calc(100% + 18px);
+
         transition: width 0.2s 0.35s linear, height 0.15s 0.5s ease-out, opacity 0s 0.3s;
     }
 
     .type-6d {
         position: relative;
-        border: none;
-        cursor: pointer;
+
         color: transparent;
         background: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%);
         -webkit-background-clip: text;
@@ -485,6 +483,7 @@
     .type-6d::after {
         position: absolute;
         content: "";
+        box-sizing: border-box;
         width: 0%;
         height: 0%;
         opacity: 0;
@@ -500,7 +499,7 @@
     }
 
     .type-6d::after {
-        top: -7px;
+        top: -10px;
         right: -10px;
         border-bottom: 3px solid;
         border-right: 3px solid;
@@ -509,19 +508,15 @@
 
     .type-6d:hover::before,
     .type-6d:hover::after {
-        outline: 0 !important;
-        outline-offset: 0;
 
-        width: calc(100% + 17px);
-        height: calc(100% + 17px);
+
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
         opacity: 1;
         transition: width 0.2s 0.15s ease-out, height 0.15s ease-in, opacity 0s;
 
     }
 
-    .type-6d:hover::after {
-        width: calc(100% + 18px);
-    }
 
     /*
     .type-7 {
