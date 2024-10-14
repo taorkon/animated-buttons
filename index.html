@@ -101,15 +101,15 @@
 
     @keyframes flow-anim {
         0% {
-            background-position: 0% 50%
+            background-position: 0% 50%;
         }
 
         50% {
-            background-position: 100% 50%
+            background-position: 100% 50%;
         }
 
         100% {
-            background-position: 0% 50%
+            background-position: 0% 50%;
         }
     }
 
@@ -427,8 +427,8 @@
     }
 
     .type-6c::before {
-        top: -10px;
-        right: -10px;
+        top: 0px;
+        right: 0px;
 
         border-top: 3px solid;
         border-left: 3px solid;
@@ -439,8 +439,8 @@
     }
 
     .type-6c::after {
-        bottom: -10px;
-        left: -10px;
+        bottom: 0px;
+        left: 0px;
 
         border-bottom: 3px solid;
         border-right: 3px solid;
@@ -454,8 +454,8 @@
     .type-6c:hover::after {
 
 
-        width: calc(100% + 20px);
-        height: calc(100% + 20px);
+        width: calc(100%);
+        height: calc(100%);
         opacity: 1;
     }
 
@@ -491,16 +491,16 @@
     }
 
     .type-6d::before {
-        bottom: -10px;
-        left: -10px;
+        bottom: 0px;
+        left: 0px;
         border-top: 3px solid;
         border-left: 3px solid;
         border-image: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%)1;
     }
 
     .type-6d::after {
-        top: -10px;
-        right: -10px;
+        top: 0px;
+        right: 0px;
         border-bottom: 3px solid;
         border-right: 3px solid;
         border-image: linear-gradient(90deg, rgb(71, 86, 224), rgb(198, 25, 241) 100%)1;
@@ -510,8 +510,8 @@
     .type-6d:hover::after {
 
 
-        width: calc(100% + 20px);
-        height: calc(100% + 20px);
+        width: calc(100%);
+        height: calc(100%);
         opacity: 1;
         transition: width 0.2s 0.15s ease-out, height 0.15s ease-in, opacity 0s;
 
@@ -598,6 +598,7 @@
             background: radial-gradient(circle, rgb(198, 25, 241), rgb(112, 250, 190));
         }
     }
+    
 </style>
 
 <body>
@@ -774,16 +775,16 @@
     <script>
         document.querySelectorAll('.type-7').forEach(function (button) {
             console.log(button);
-            var circle = document.querySelector('.type-7-circle');
+            let circle = document.querySelector('.type-7-circle');
 
             console.log(circle);
 
             button.addEventListener('mouseenter', function (e) {
                 console.log(circle);
-                var parentOffset = button.getBoundingClientRect();
+                let parentOffset = button.getBoundingClientRect();
 
-                var relX = e.clientX - parentOffset.left;
-                var relY = e.clientY - parentOffset.top;
+                let relX = e.clientX - parentOffset.left;
+                let relY = e.clientY - parentOffset.top;
 
                 console.log("e.clientX", e.clientX);
                 console.log("e.clientY", e.clientY);
@@ -793,7 +794,7 @@
                 console.log("relY", relY);
 
                 // Find the corresponding .su_button_circle by navigating the DOM
-                //var circle = document.querySelector('.su_button_circle[data-id="' + button.dataset.id + '"]');
+                //let circle = document.querySelector('.su_button_circle[data-id="' + button.dataset.id + '"]');
 
                 circle.style.left = relX + 'px';
                 circle.style.top = relY + 'px';
@@ -803,13 +804,13 @@
 
             button.addEventListener('mouseleave', function (e) {
                 console.log(circle);
-                var parentOffset = button.getBoundingClientRect();
+                let parentOffset = button.getBoundingClientRect();
 
-                var relX = e.clientX - parentOffset.left;
-                var relY = e.clientY - parentOffset.top;
+                let relX = e.clientX - parentOffset.left;
+                let relY = e.clientY - parentOffset.top;
 
                 // Find the corresponding .su_button_circle
-                //var circle = document.querySelector('.su_button_circle[data-id="' + button.dataset.id + '"]');
+                //let circle = document.querySelector('.su_button_circle[data-id="' + button.dataset.id + '"]');
 
                 circle.style.left = relX + 'px';
                 circle.style.top = relY + 'px';
