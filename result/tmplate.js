@@ -27,11 +27,11 @@ let inputs = [
     20 - Обведение прозрачной кнопки линией при наведении (из одной точки), 
     21 - Обведение прозрачной кнопки линией при наведении (из двух точек), 
     22 - Заливка кнопки при наведении, чувствительная к положению мышки`},
-    { name: "animation-background-color", title: "Цвет кнопки при анимации в формате hex (для эффектов 4-8, 14-18 и 23)", place: "" },
-    { name: "animation-text-color", title: "Цвет текста при анимации в формате hex, если нужно чтобы он менялся при наведении (возможено для всех эффектов, кроме 2го) ", place: "" },
-    { name: "gradient-background-begin", title: "Начальный цвет градиента для фона кнопки в формате hex. Обязательное поле для создания градиента.(Наличие градиента обязательно для работы эффектов 9-12, и возможно для эффектов 3, 19-22)", place: "" },
-    { name: "gradient-background-middle", title: "Серединный цвет градиента для фона кнопки в формате hex. Можно добавить, если нужен трехцветный градиент", place: "" },
-    { name: "gradient-background-end", title: "Конечный цвет градиента для фона кнопки в формате hex. Обязательное поле для создания градиента.", place: "" },
+    { name: "animation-background-color", title: "Цвет кнопки при анимации в формате hex или rgb(для эффектов 4-8, 14-18 и 23)", place: "" },
+    { name: "animation-text-color", title: "Цвет текста при анимации в формате hex или rgb, если нужно чтобы он менялся при наведении (возможено для всех эффектов, кроме 2го) ", place: "" },
+    { name: "gradient-background-begin", title: "Начальный цвет градиента для фона кнопки в формате hex или rgb. Обязательное поле для создания градиента.(Наличие градиента обязательно для работы эффектов 9-12, и возможно для эффектов 3, 19-22)", place: "" },
+    { name: "gradient-background-middle", title: "Серединный цвет градиента для фона кнопки в формате hex или rgb. Можно добавить, если нужен трехцветный градиент", place: "" },
+    { name: "gradient-background-end", title: "Конечный цвет градиента для фона кнопки в формате hex или rgb. Обязательное поле для создания градиента.", place: "" },
 ]
 
 let numOnPage = calc.num;
@@ -154,27 +154,37 @@ switch (animType) {
 
     case animTypesList[1]:  // BTN 2
 
+
         codeString = `<script>
-        let btn${numOnPage} = document.querySelector(\`.${cls} .tn-atom\`);
-        let btnBkg${numOnPage} = getComputedStyle(btn${numOnPage},null).getPropertyValue('background-color');
-        let btnBorderRadius${numOnPage} = parseFloat(getComputedStyle(btn${numOnPage},null).getPropertyValue('border-radius'));
-        let btnWidth${numOnPage} =  parseFloat(getComputedStyle(btn${numOnPage},null).getPropertyValue('width'));
         
-        let lineWidth${numOnPage} = btnWidth${numOnPage} - btnBorderRadius${numOnPage} * 2;
-        let lineWidthPercent${numOnPage} = (lineWidth${numOnPage} / btnWidth${numOnPage}) * 100;
-
+        let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
         
-        let innerStyleString${numOnPage} = \`<style>
+        let innerStyleString${numOnPage} = \`<style>\`;
+        
+        for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+            let btn = btns${numOnPage}[i];
+            let subClass = \`effect2-${cls}-${numOnPage}-\${i}\`;
+            btn.classList.add(subClass);
+            
 
-        .${cls}  .tn-atom::before,
-        .${cls}  .tn-atom::after{
+            let btnBkgInner = getComputedStyle(btn,null).getPropertyValue('background-color');
+            let btnBorderRadiusInner = parseFloat(getComputedStyle(btn,null).getPropertyValue('border-radius'));
+            let btnWidthInner =  parseFloat(getComputedStyle(btn,null).getPropertyValue('width'));
+        
+            let lineWidthInner = btnWidthInner - btnBorderRadiusInner * 2;
+            let lineWidthPercentInner = (lineWidthInner / btnWidthInner) * 100;
+            
+            innerStyleString${numOnPage} += \`
+            .\${subClass}::before,
+            .\${subClass}::after{
             content:'';
             position:absolute;
             top:0;
-            right: \${btnBorderRadius${numOnPage}}px;
+            right: \${btnBorderRadiusInner}px;
             height:2px;
             width:0;
-            background: \${btnBkg${numOnPage}};
+            background: \${btnBkgInner};
             box-shadow:
                 -1px -1px 5px 0px #fff,
                 7px 7px 20px 0px #0003,
@@ -182,27 +192,31 @@ switch (animType) {
             transition:400ms ease all;
         }
 
-        .${cls} .tn-atom::after{
+        .\${subClass}::after{
             right:inherit;
             top:inherit;
-            left:\${btnBorderRadius${numOnPage}}px;
+            left:\${btnBorderRadiusInner}px;
             bottom:0;
         }
 
-        .${cls} .tn-atom:hover {
-            color: \${btnBkg${numOnPage}} !important;
+        .\${subClass}:hover {
+            color: \${btnBkgInner} !important;
             background: transparent !important;
             box-shadow:none !important;
         }
         
-        .${cls}  .tn-atom:hover::before,
-        .${cls} .tn-atom:hover::after{
-            width: \${lineWidthPercent${numOnPage}}%;
+        .\${subClass}:hover::before,
+        .\${subClass}:hover::after{
+            width: \${lineWidthPercentInner}%;
             transition:800ms ease all;
+        }\`
+            
         }
-        </style>\`
+        
+        
+        innerStyleString${numOnPage} += \`</style>\`;
 
-        btn${numOnPage}.insertAdjacentHTML("afterend", innerStyleString${numOnPage});
+        btns${numOnPage}[btns${numOnPage}.length - 1].insertAdjacentHTML("afterend", innerStyleString${numOnPage});
         <\/script>`;
 
         break;
@@ -259,14 +273,23 @@ switch (animType) {
 
             ${animTextColorRule}
             </style>`;
+
         } else if (!gradient) {
 
             codeString = `<script>
-            let btn${numOnPage} = document.querySelector(\`.${cls} .tn-atom\`);
-            let btnBkg${numOnPage} = getComputedStyle(btn${numOnPage},null).getPropertyValue('background-color');
+            let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+            let innerStyleString${numOnPage} = \`<style>\`;
+        
+            for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+                let btn = btns${numOnPage}[i];
+                let subClass = \`effect2-${cls}-${numOnPage}-\${i}\`;
+                btn.classList.add(subClass);
             
-            let innerStyleString${numOnPage} = \`<style>
-            .${cls} .tn-atom {
+                let btnBkgInner = getComputedStyle(btn,null).getPropertyValue('background-color');
+            
+                innerStyleString${numOnPage} += \`
+            .\${subClass} {
                 position: relative;
                 border: none !important;
                 transition: all 0.3s ease;
@@ -274,7 +297,7 @@ switch (animType) {
                 background-color: unset !important;
             }
 
-            .${cls} .tn-atom::before {
+            .\${subClass}::before {
                 position: absolute;
                 content: " ";
                 z-index: -1000;    
@@ -282,11 +305,11 @@ switch (animType) {
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background-color: \${btnBkg${numOnPage}};
+                background-color: \${btnBkgInner};
                 transition: all 0.3s ease;
             }
 
-            .${cls} .tn-atom:hover {
+            .\${subClass}:hover {
                 background: transparent;
                 box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5), 
                     -4px -4px 6px 0 rgba(116, 125, 136, .2), 
@@ -294,7 +317,7 @@ switch (animType) {
                     inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
             }
 
-            .${cls} .tn-atom:hover::before {
+            .\${subClass}:hover::before {
                 -webkit-transform: scale(2) rotate(180deg); 
                 transform: scale(2) rotate(180deg); 
                 box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
@@ -303,12 +326,13 @@ switch (animType) {
                     inset 4px 4px 6px 0 rgba(116, 125, 136, .3); 
             }
 
-            ${animTextColorRule}
-            </style>\`
-
-        btn${numOnPage}.insertAdjacentHTML("afterend", innerStyleString${numOnPage});
+            ${animTextColorRule}\`
+            }
             
-            <\/script>`;
+        innerStyleString${numOnPage} += \`</style>\`
+        btns${numOnPage}[btns${numOnPage}.length - 1].insertAdjacentHTML("afterend", innerStyleString${numOnPage});
+            
+        <\/script>`;
         }
 
         break;
@@ -317,16 +341,24 @@ switch (animType) {
 
 
         codeString = `<script>
-        let btn${numOnPage} = document.querySelector('.${cls} .tn-atom');
-        let btnBorderRadius${numOnPage} = getComputedStyle(btn${numOnPage},null).getPropertyValue('border-radius');
+        let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+        let innerStyleString${numOnPage} = \`<style>\`;
+        
+        for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+            let btn = btns${numOnPage}[i];
+            let subClass = \`effect2-${cls}-${numOnPage}-\${i}\`;
+            btn.classList.add(subClass);
+                
+            let btnBorderRadius = getComputedStyle(btn,null).getPropertyValue('border-radius');
 
-        let innerStyleString${numOnPage} = \`<style>
-            .${cls} .tn-atom {
+            innerStyleString${numOnPage} += \`
+            .\${subClass}{
                 position: relative;
                 transition: all 0.3s ease;
             }
 
-            .${cls} .tn-atom::after {
+            .\${subClass}::after {
                 position: absolute;
                 content: " ";
                 top: 0;
@@ -335,26 +367,27 @@ switch (animType) {
                 width: 100%;
                 height: 100%;
                 border: 0px;
-                border-radius: \${btnBorderRadius${numOnPage}};
+                border-radius: \${btnBorderRadius};
                 transition: all 0.3s ease;
                 -webkit-transform: scale(.1);
                 transform: scale(.1);
             }
 
-            .${cls} .tn-atom:hover {
+            .\${subClass}:hover {
                 background: transparent !important;
             }
 
-            .${cls} .tn-atom:hover::after {
+            .\${subClass}:hover::after {
                 background: ${animBkg};
                 -webkit-transform: scale(1);
                 transform: scale(1);
             }
 
-            ${animTextColorRule}
-            </style>\`;
+            ${animTextColorRule}\`;
+        }
     
-        btn${numOnPage}.insertAdjacentHTML("afterend", innerStyleString${numOnPage} );
+        innerStyleString${numOnPage} += \`</style>\`
+        btns${numOnPage}[btns${numOnPage}.length - 1].insertAdjacentHTML("afterend", innerStyleString${numOnPage});
         <\/script>`;
 
         break;
@@ -534,7 +567,7 @@ switch (animType) {
             z-index: 0;
         }
 
-        #animEl${numOnPage} {
+        .effect9-${cls}-${numOnPage} {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -550,10 +583,17 @@ switch (animType) {
         ${animTextColorRule}
         </style>
         <script>
-        let animEl${numOnPage} = document.createElement('div');
-        animEl${numOnPage}.setAttribute("id", "animEl${numOnPage}");
-        let btn${numOnPage} = document.querySelector(".${cls} .tn-atom");
-        btn${numOnPage}.append(animEl${numOnPage});
+        
+        let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+        let subClass = \`effect9-${cls}-${numOnPage}\`;
+        
+        for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+            let btn = btns${numOnPage}[i];
+            let animEl = document.createElement('div');
+            animEl.setAttribute("class", \`\${subClass}\`);
+            btn.append(animEl);
+
         <\/script>`;
 
         break;
@@ -575,7 +615,7 @@ switch (animType) {
         }
 
 
-        #animEl${numOnPage} {
+        .effect10-${cls}-${numOnPage} {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -587,13 +627,13 @@ switch (animType) {
         }
     
         @media (hover: hover){
-            .${cls} .tn-atom:hover #animEl${numOnPage} {
+            .${cls} .tn-atom:hover .effect10-${cls}-${numOnPage} {
                 animation: flow-anim 4s linear infinite;
             }
         }
     
         @media (hover: none){
-            #animEl${numOnPage} {
+            .effect10-${cls}-${numOnPage} {
             animation: flow-anim 4s linear infinite;
             }
         }
@@ -602,10 +642,18 @@ switch (animType) {
         ${animTextColorRule}
         </style>
         <script>
-        let animEl${numOnPage} = document.createElement('div');
-        animEl${numOnPage} .setAttribute("id", "animEl${numOnPage}");
-        let btn${numOnPage} = document.querySelector(".${cls} .tn-atom");
-        btn${numOnPage}.append(animEl${numOnPage});
+        
+        let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+        let subClass = \`effect10-${cls}-${numOnPage}\`;
+        
+        for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+            let btn = btns${numOnPage}[i];
+            let animEl = document.createElement('div');
+            animEl.setAttribute("class", \`\${subClass}\`);
+            btn.append(animEl);
+        }
+
         <\/script>`;
 
         break;
@@ -620,20 +668,16 @@ switch (animType) {
 
 
         codeString = `<script>
-        let animEl${numOnPage} = document.createElement('div');
-        animEl${numOnPage} .setAttribute("id", "animEl${numOnPage}");
-        let btn${numOnPage} = document.querySelector(".${cls} .tn-atom");
-        btn${numOnPage}.append(animEl${numOnPage});
-
+        
         let plainMask${numOnPage} = "(mask: linear-gradient(#000 0 0) exclude,linear-gradient(#000 0 0) content-box)";
         let webkitMask${numOnPage} = "(-webkit-mask: linear-gradient(#000 0 0) exclude,linear-gradient(#000 0 0) content-box)";
         let supportCheck${numOnPage} = CSS.supports(plainMask${numOnPage}) || CSS.supports(webkitMask${numOnPage});
 
         let baseTextColor = \`\`;
         let animationElement;
-
+        
         if (supportCheck${numOnPage}){
-            animationElement = \`#animEl${numOnPage} {
+            animationElement = \`.effect11-${cls}-${numOnPage} {
                 position: absolute;
                 inset: 0;
                 padding: 5px;
@@ -650,7 +694,7 @@ switch (animType) {
             }\`;
         } else if (!supportCheck${numOnPage}){
             baseTextColor = \`color: white !important;\`;
-            animationElement = \`#animEl${numOnPage}{
+            animationElement = \`.effect11-${cls}-${numOnPage} {
                 position: absolute;
                 width: 100%;
                 height: 100%;
@@ -661,8 +705,9 @@ switch (animType) {
                 z-index: -1;
                 animation: flow-anim 4s linear infinite;
             }\`;
+            
         }
-
+        
         let innerStyleString${numOnPage} = \`<style>
         .${cls} .tn-atom{
             position: relative;
@@ -676,8 +721,20 @@ switch (animType) {
         ${flowAnimation}
         ${animTextColorRule}
         <\/style>\`;
-
-        btn${numOnPage}.insertAdjacentHTML("afterend", innerStyleString${numOnPage});
+        
+        let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+        let subClass = \`effect11-${cls}-${numOnPage}\`;
+        
+        
+        for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+            let btn = btns${numOnPage}[i];
+            let animEl = document.createElement('div');
+            animEl.setAttribute("class", \`\${subClass}\`);
+            btn.append(animEl);
+        }
+        
+        btns${numOnPage}[btns${numOnPage}.length - 1].insertAdjacentHTML("afterend", innerStyleString${numOnPage});
         <\/script>`;
 
         break;
@@ -691,36 +748,31 @@ switch (animType) {
         }
 
         codeString = ` <script>
-        let animEl${numOnPage} = document.createElement('div');
-        animEl${numOnPage} .setAttribute("id", "animEl${numOnPage}");
-        let btn${numOnPage} = document.querySelector(".${cls} .tn-atom");
-        btn${numOnPage}.append(animEl${numOnPage});
-
         let plainMask${numOnPage} = "(mask: linear-gradient(#000 0 0) exclude,linear-gradient(#000 0 0) content-box)";
         let webkitMask${numOnPage} = "(-webkit-mask: linear-gradient(#000 0 0) exclude,linear-gradient(#000 0 0) content-box)";
         let supportCheck${numOnPage} = CSS.supports(plainMask${numOnPage}) || CSS.supports(webkitMask${numOnPage});
 
         let baseTextColor = \`\`;
         let animationElement;
-
+        
         if (supportCheck${numOnPage}){
-            animationElement = \`#animEl${numOnPage} {
+            animationElement = \`.effect12-${cls}-${numOnPage} {
                 position: absolute;
                 inset: 0;
                 padding: 5px;
                 border-radius: 50px;
                 background: ${gradient};
                 background-size: 300%;
+        
                 -webkit-mask: linear-gradient(#000 0 0) exclude,
                     linear-gradient(#000 0 0) content-box;
                 mask:
                     linear-gradient(#000 0 0) exclude,
                     linear-gradient(#000 0 0) content-box;
-                    
             }\`;
         } else if (!supportCheck${numOnPage}){
             baseTextColor = \`color: white !important;\`;
-            animationElement = \`#animEl${numOnPage}{
+            animationElement = \`.effect12-${cls}-${numOnPage} {
                 position: absolute;
                 width: 100%;
                 height: 100%;
@@ -729,10 +781,10 @@ switch (animType) {
                 background: ${gradient};
                 background-size: 300%;
                 z-index: -1;
-                
             }\`;
+            
         }
-
+        
         let innerStyleString${numOnPage} = \`<style>
         .${cls} .tn-atom{
             position: relative;
@@ -741,26 +793,39 @@ switch (animType) {
             background-color: transparent !important;
             \${baseTextColor}
         }
-    
+        
         @media (hover: hover){
-            .${cls} .tn-atom:hover #animEl${numOnPage}{
+            .${cls} .tn-atom:hover .effect12-${cls}-${numOnPage} {
                 animation: flow-anim  2s alternate infinite;
             }  
         }
     
         @media (hover: none){
-            #animEl${numOnPage}{
+            .effect12-${cls}-${numOnPage} {
                 animation: flow-anim  2s alternate infinite;
             }
         }
-
+    
         \${animationElement}
         ${flowAnimation}
         ${animTextColorRule}
         <\/style>\`;
-
-        btn${numOnPage}.insertAdjacentHTML("afterend", innerStyleString${numOnPage});
+        
+        let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+        let subClass = \`effect12-${cls}-${numOnPage}\`;
+        
+        
+        for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+            let btn = btns${numOnPage}[i];
+            let animEl = document.createElement('div');
+            animEl.setAttribute("class", \`\${subClass}\`);
+            btn.append(animEl);
+        }
+        
+        btns${numOnPage}[btns${numOnPage}.length - 1].insertAdjacentHTML("afterend", innerStyleString${numOnPage});
         <\/script>`;
+
 
         break;
 
@@ -1010,17 +1075,25 @@ switch (animType) {
         } else if (!gradient) {
 
             codeString = `<script>
-            let btn${numOnPage} = document.querySelector(\`.${cls} .tn-atom\`);
-            let btnBkg${numOnPage} = getComputedStyle(btn${numOnPage},null).getPropertyValue('background-color');
-
-            let innerStyleString${numOnPage} = \`<style>
-            .${cls} .tn-atom{
+            let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+            let innerStyleString${numOnPage} = \`<style>\`;
+        
+            for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+                let btn = btns${numOnPage}[i];
+                let subClass = \`effect2-${cls}-${numOnPage}-\${i}\`;
+                btn.classList.add(subClass);
+            
+                let btnBkgInner = getComputedStyle(btn,null).getPropertyValue('background-color');
+                
+                innerStyleString${numOnPage} += \`
+            .\${subClass} {
                 position: relative;  
                 border-radius: 0px !important;
             }
 
-            .${cls} .tn-atom::before,
-            .${cls} .tn-atom::after {
+            .\${subClass}::before,
+            .\${subClass}::after {
                 position: absolute;
                 content: "";
                 box-sizing: border-box;
@@ -1029,43 +1102,44 @@ switch (animType) {
                 opacity: 0;
             }
 
-            .${cls} .tn-atom::before {
+            .\${subClass}::before {
                 top: -10px;
                 right: -10px;
             border-top: 3px solid;
             border-left: 3px solid;
-            border-color: \${btnBkg${numOnPage}};
+            border-color: \${btnBkgInner};
             transition: width 0.2s 0.5s ease-out, height 0.15s 0.35s linear, opacity 0s 0.7s;
             }
 
-            .${cls} .tn-atom::after {
+            .\${subClass}::after {
                 bottom: -10px;
                 left: -10px;
                 border-bottom: 3px solid;
                 border-right: 3px solid;
-                border-color: \${btnBkg${numOnPage}};
+                border-color: \${btnBkgInner};
                 transition: width 0.2s 0.15s linear, height 0.15s ease-in, opacity 0s 0.35s;
             }
 
-            .${cls} .tn-atom:hover::before,
-            .${cls} .tn-atom:hover::after {
+            .\${subClass}:hover::before,
+            .\${subClass}:hover::after {
                 width: calc(100% + 20px);
                 height: calc(100% + 20px);
                 opacity: 1;
             }
 
-            .${cls} .tn-atom:hover::before {
+            .\${subClass}:hover::before {
                 transition: width 0.2s ease-in, height 0.15s 0.2s linear, opacity 0s;
             }
 
-            .${cls} .tn-atom:hover::after {
+            .\${subClass}:hover::after {
                 transition: width 0.2s 0.35s linear, height 0.15s 0.5s ease-out, opacity 0s 0.3s;
+            }\`;
             }
-    
+            
+            innerStyleString${numOnPage} += \`
             ${animTextColorRule}
-            </style>\`
-
-            btn${numOnPage}.insertAdjacentHTML("afterend", innerStyleString${numOnPage});
+            </style>\`;
+            btns${numOnPage}[btns${numOnPage}.length - 1].insertAdjacentHTML("afterend", innerStyleString${numOnPage});
             <\/script>`;
         }
 
@@ -1131,18 +1205,27 @@ switch (animType) {
         } else if (!gradient) {
 
             codeString = `<script>
-            let btn${numOnPage} = document.querySelector(\`.${cls} .tn-atom\`);
-            let btnBkg${numOnPage} = getComputedStyle(btn${numOnPage},null).getPropertyValue('background-color');
 
-            let innerStyleString${numOnPage} = \`<style>
-            .${cls} .tn-atom{
+            let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+            let innerStyleString${numOnPage} = \`<style>\`;
+        
+            for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+                let btn = btns${numOnPage}[i];
+                let subClass = \`effect2-${cls}-${numOnPage}-\${i}\`;
+                btn.classList.add(subClass);
+            
+                let btnBkgInner = getComputedStyle(btn,null).getPropertyValue('background-color');
+                
+                innerStyleString${numOnPage} += \`
+            .\${subClass} {
                 position: relative;
                 border-radius: 0px !important;
             }
 
 
-            .${cls} .tn-atom::before,
-            .${cls} .tn-atom::after {
+            .\${subClass}::before,
+            .\${subClass}::after {
                 position: absolute;
                 content: "";
                 box-sizing: border-box;
@@ -1152,34 +1235,35 @@ switch (animType) {
                 transition: width 0.2s linear, height 0.15s 0.2s ease-out, opacity 0s 0.35s;
             }
 
-            .${cls} .tn-atom::before {
+            .\${subClass}::before {
                 bottom: -10px;
                 left: -10px;
                 border-top: 3px solid;
                 border-left: 3px solid;
-                border-color: \${btnBkg${numOnPage}};
+                border-color: \${btnBkgInner};
             }
 
-            .${cls} .tn-atom::after {
+            .\${subClass}::after {
                 top: -10px;
                 right: -10px;
                 border-bottom: 3px solid;
                 border-right: 3px solid;
-                border-color: \${btnBkg${numOnPage}};
+                border-color: \${btnBkgInner};
             }
 
-            .${cls} .tn-atom:hover::before,
-            .${cls} .tn-atom:hover::after {
+            .\${subClass}:hover::before,
+            .\${subClass}:hover::after {
                 width: calc(100% + 20px);
                 height: calc(100% + 20px);
                 opacity: 1;
                 transition: width 0.2s 0.15s ease-out, height 0.15s ease-in, opacity 0s;
+            }\`;
             }
-    
+            
+            innerStyleString${numOnPage} += \`
             ${animTextColorRule}
-            </style>\`
-
-            btn${numOnPage}.insertAdjacentHTML("afterend", innerStyleString${numOnPage});
+            </style>\`;
+            btns${numOnPage}[btns${numOnPage}.length - 1].insertAdjacentHTML("afterend", innerStyleString${numOnPage});
             <\/script>`;
         }
 
@@ -1256,19 +1340,27 @@ switch (animType) {
         } else if (!gradient) {
 
             codeString = `<script>
-            let btn${numOnPage} = document.querySelector(\`.${cls} .tn-atom\`);
-            let btnBkg${numOnPage} = getComputedStyle(btn${numOnPage},null).getPropertyValue('background-color');
+            let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+            let innerStyleString${numOnPage} = \`<style>\`;
         
-            let innerStyleString${numOnPage} = \`<style>
-            .${cls} .tn-atom{
+            for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+                let btn = btns${numOnPage}[i];
+                let subClass = \`effect2-${cls}-${numOnPage}-\${i}\`;
+                btn.classList.add(subClass);
+            
+                let btnBkgInner = getComputedStyle(btn,null).getPropertyValue('background-color');
+                
+                innerStyleString${numOnPage} += \`
+                .\${subClass} {
                 position: relative;
                 z-index: 1;
-                color: \${btnBkg${numOnPage}} !important;
+                color: \${btnBkgInner} !important;
                 background: transparent !important;     
             }
 
-            .${cls} .tn-atom::before,
-            .${cls} .tn-atom::after {
+            .\${subClass}::before,
+            .\${subClass}::after {
                 position: absolute;
                 content: "";
                 box-sizing: border-box;
@@ -1277,43 +1369,45 @@ switch (animType) {
                 opacity: 0;
             }
 
-            .${cls} .tn-atom::before {
+            .\${subClass}::before {
                 top: 0px;
                 right: 0px;
                 border-top: 3px solid;
                 border-left: 3px solid;
-                border-color: \${btnBkg${numOnPage}} !important;
+                border-color: \${btnBkgInner} !important;
                 transition: width 0.2s 0.5s ease-out, height 0.15s 0.35s linear, opacity 0s 0.7s;
             }
 
-            .${cls} .tn-atom::after {
+            .\${subClass}::after {
                 bottom: 0px;
                 left: 0px;
                 border-bottom: 3px solid;
                 border-right: 3px solid;
-                border-color: \${btnBkg${numOnPage}} !important;
+                border-color: \${btnBkgInner} !important;
                 transition: width 0.2s 0.15s linear, height 0.15s ease-in, opacity 0s 0.35s;
             }
 
-            .${cls} .tn-atom:hover::before,
-            .${cls} .tn-atom:hover::after {
+            .\${subClass}:hover::before,
+            .\${subClass}:hover::after {
                 width: calc(100%);
                 height: calc(100%);
                 opacity: 1;
             }
 
-            .${cls} .tn-atom:hover::before {
+            .\${subClass}:hover::before {
                 transition: width 0.2s ease-in, height 0.15s 0.2s linear, opacity 0s;
             }
 
-            .${cls} .tn-atom:hover::after {
+            .\${subClass}:hover::after {
                 transition: width 0.2s 0.35s linear, height 0.15s 0.5s ease-out, opacity 0s 0.3s;
+            }\`;
             }
-    
+        
+            innerStyleString${numOnPage} += \`
             ${animTextColorRule}
             </style>\`
 
-            btn${numOnPage}.insertAdjacentHTML("afterend", innerStyleString${numOnPage});
+            btns${numOnPage}[btns${numOnPage}.length - 1].insertAdjacentHTML("afterend", innerStyleString${numOnPage});
             <\/script>`;
         }
 
@@ -1382,19 +1476,26 @@ switch (animType) {
         } else if (!gradient) {
 
             codeString = `<script>
-            let btn${numOnPage} = document.querySelector(\`.${cls} .tn-atom\`);
-            let btnBkg${numOnPage} = getComputedStyle(btn${numOnPage},null).getPropertyValue('background-color');
-
-            let innerStyleString${numOnPage} = \`<style>
-            .${cls} .tn-atom{
+            let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+            let innerStyleString${numOnPage} = \`<style>\`;
+        
+            for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+                let btn = btns${numOnPage}[i];
+                let subClass = \`effect2-${cls}-${numOnPage}-\${i}\`;
+                btn.classList.add(subClass);
+            
+                let btnBkgInner = getComputedStyle(btn,null).getPropertyValue('background-color');
+                innerStyleString${numOnPage} += \`
+            .\${subClass} {
                 position: relative;
                 z-index: 1;
-                color: \${btnBkg${numOnPage}} !important;
+                color: \${btnBkgInner} !important;
                 background: transparent !important;    
             }
 
-            .${cls} .tn-atom::before,
-            .${cls} .tn-atom::after {
+            .\${subClass}::before,
+            .\${subClass}::after {
                 position: absolute;
                 content: "";
                 box-sizing: border-box;
@@ -1404,34 +1505,36 @@ switch (animType) {
                 transition: width 0.2s linear, height 0.15s 0.2s ease-out, opacity 0s 0.35s;
             }
 
-            .${cls} .tn-atom::before {
+            .\${subClass}::before {
                 bottom: 0px;
                 left: 0px;
                 border-top: 3px solid;
                 border-left: 3px solid;
-                border-color: \${btnBkg${numOnPage}} !important;
+                border-color: \${btnBkgInner} !important;
             }
 
-            .${cls} .tn-atom::after {
+            .\${subClass}::after {
                 top: 0px;
                 right: 0px;
                 border-bottom: 3px solid;
                 border-right: 3px solid;
-                border-color: \${btnBkg${numOnPage}} !important;
+                border-color: \${btnBkgInner} !important;
             }
 
-            .${cls} .tn-atom:hover::before,
-            .${cls} .tn-atom:hover::after {
+            .\${subClass}:hover::before,
+            .\${subClass}:hover::after {
                 width: calc(100%);
                 height: calc(100%);
                 opacity: 1;
                 transition: width 0.2s 0.15s ease-out, height 0.15s ease-in, opacity 0s;
+            }\`;
             }
-    
+            
+            innerStyleString${numOnPage} += \`
             ${animTextColorRule}
             </style>\`
 
-            btn${numOnPage}.insertAdjacentHTML("afterend", innerStyleString${numOnPage});
+            btns${numOnPage}[btns${numOnPage}.length - 1].insertAdjacentHTML("afterend", innerStyleString${numOnPage});
             <\/script>`;
         }
 
@@ -1447,7 +1550,7 @@ switch (animType) {
             text-shadow: rgba(0, 0, 0) 0 0 80px !important;
         }
 
-        #animEl${numOnPage} {
+        .effect22-${cls}-${numOnPage} {
             background: ${animBkg};
             border-radius: 1000px;
             position: absolute;
@@ -1504,38 +1607,44 @@ switch (animType) {
         ${animTextColorRule}
         </style>
         <script>
-        let animEl${numOnPage} = document.createElement('div');
-        animEl${numOnPage}.setAttribute("id", "animEl${numOnPage}");
-        let btn${numOnPage} = document.querySelector(".${cls} .tn-atom");
-        btn${numOnPage}.append(animEl${numOnPage});
-
-        btn${numOnPage}.addEventListener('mouseenter', function (e) {
+        let btns${numOnPage} = document.querySelectorAll(\`.${cls} .tn-atom\`);
+        let subClass = \`effect22-${cls}-${numOnPage}\`;
+        
+        for (let i=0; i < btns${numOnPage}.length; i += 1){
+        
+            let btn = btns${numOnPage}[i];
+            let animEl = document.createElement('div');
+            animEl.setAttribute("class", \`\${subClass}\`);
+            btn.append(animEl);
+            
+            btn.addEventListener('mouseenter', function (e) {
                 
-                let parentOffset = btn${numOnPage}.getBoundingClientRect();
+                let parentOffset = btn.getBoundingClientRect();
 
                 let relX = e.clientX - parentOffset.left;
                 let relY = e.clientY - parentOffset.top;
 
                 
-                animEl${numOnPage}.style.left = relX + 'px';
-                animEl${numOnPage}.style.top = relY + 'px';
-                animEl${numOnPage}.classList.remove('desplode-circle');
-                animEl${numOnPage}.classList.add('explode-circle');
+                animEl.style.left = relX + 'px';
+                animEl.style.top = relY + 'px';
+                animEl.classList.remove('desplode-circle');
+                animEl.classList.add('explode-circle');
             });
 
-        btn${numOnPage}.addEventListener('mouseleave', function (e) {
+            btn.addEventListener('mouseleave', function (e) {
                 
-                let parentOffset = btn${numOnPage}.getBoundingClientRect();
+                let parentOffset = btn.getBoundingClientRect();
 
                 let relX = e.clientX - parentOffset.left;
                 let relY = e.clientY - parentOffset.top;
 
 
-                animEl${numOnPage}.style.left = relX + 'px';
-                animEl${numOnPage}.style.top = relY + 'px';
-                animEl${numOnPage}.classList.remove('explode-circle');
-                animEl${numOnPage}.classList.add('desplode-circle');
+                animEl.style.left = relX + 'px';
+                animEl.style.top = relY + 'px';
+                animEl.classList.remove('explode-circle');
+                animEl.classList.add('desplode-circle');
             });
+        }
 
         <\/script>`;
         break;
